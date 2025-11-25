@@ -1,0 +1,88 @@
+.admin-section {
+  padding: 20px;
+  display: block;
+}
+
+.admin-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.admin-card-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-card-header h3 {
+  font-size: 1.2rem;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.admin-card-header p {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.admin-card-body {
+  padding: 16px;
+}
+
+.gatepass-item {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gatepass-info h4 {
+  font-size: 1rem;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.gatepass-info p {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin: 2px 0;
+}
+
+.gatepass-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.approve-btn,
+.reject-btn {
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.approve-btn {
+  background-color: #22c55e;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #16a34a;
+}
+
+.reject-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.reject-btn:hover {
+  background-color: #dc2626;
+}

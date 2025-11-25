@@ -1,0 +1,115 @@
+/* Place this file inside: src/components/AdminDashboard/Users.css */
+
+.users-section {
+  padding: 20px;
+}
+
+.users-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border: 1px solid #f0f0f0;
+}
+
+.users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.users-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.users-header p {
+  color: #666;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.add-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.officers-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .officers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .officers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.officer-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.officer-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.officer-info h4 {
+  font-weight: 500;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.officer-info p {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 2px 0;
+}
+
+.officer-actions button {
+  margin-left: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.edit-btn {
+  color: #2563eb;
+}
+
+.edit-btn:hover {
+  color: #1e40af;
+}
+
+.remove-btn {
+  color: #dc2626;
+}
+
+.remove-btn:hover {
+  color: #991b1b;
+}

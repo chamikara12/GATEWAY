@@ -1,0 +1,154 @@
+/* Place this file inside: src/components/SecurityDashboard/VehicleExit.css */
+
+.vehicle-exit-section {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Vehicle Exit Form */
+.vehicle-exit-container {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 24px;
+}
+
+.vehicle-exit-container h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.vehicle-exit-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .vehicle-exit-form .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-span {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.input-field {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
+}
+
+.btn-submit {
+  background-color: #16a34a;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #15803d;
+}
+
+/* Approved Passes */
+.approved-passes-container {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 24px;
+}
+
+.approved-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.approved-header p {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 16px;
+}
+
+.approved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.approved-pass {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  border: 1px solid #d1fae5;
+  background-color: #ecfdf5;
+  border-radius: 12px;
+}
+
+.pass-info h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.pass-info p {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 2px;
+}
+
+.pass-status {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.status-badge {
+  background-color: #d1fae5;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 9999px;
+}
+
+.valid-time {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
