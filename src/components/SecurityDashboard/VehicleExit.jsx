@@ -7,13 +7,31 @@ export default function VehicleExit() {
   const [exitTime, setExitTime] = useState("");
   const [notes, setNotes] = useState("");
 
-  const handleExitSubmit = (e) => {
+  const handleExitSubmit = async (e) => {
     e.preventDefault();
-    alert(`Vehicle: ${vehicleNumber}\nExit Time: ${exitTime}\nNotes: ${notes}`);
-    // Add your actual submission logic here
-    setVehicleNumber("");
-    setExitTime("");
-    setNotes("");
+    try {
+      const response = await fetch(`http://localhost:5000/vehicleRecord/${vehicleNumber}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          outTime: exitTime,
+          notes: notes
+        })
+      });
+
+      if (response.ok) {
+        alert(`Vehicle Exit Recorded: ${vehicleNumber}`);
+        setVehicleNumber("");
+        setExitTime("");
+        setNotes("");
+      } else {
+        const data = await response.json();
+        alert(data.message || "Failed to record exit");
+      }
+    } catch (error) {
+      console.error("Error recording exit", error);
+      alert("Failed to record exit");
+    }
   };
 
   // Sample approved passes data

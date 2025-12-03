@@ -51,9 +51,9 @@ export default function AddUserModal({
           {!editingOfficer && (
             <>
               <div>
-                <label>Username</label>
+                <label>Email</label>
                 <input
-                  type="text"
+                  type="email"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required

@@ -2,33 +2,43 @@
 import React from "react";
 import "./Overview.css";
 
-export default function Overview() {
+export default function Overview({ faculty }) {
+
+  // Mock data - in a real app, this would come from an API filtered by faculty
+  const allStats = {
+    "Applied Science": { pending: 5, approved: 12, entries: 45, officers: 3 },
+    "Business Studies": { pending: 3, approved: 8, entries: 30, officers: 2 },
+    "Technology": { pending: 4, approved: 15, entries: 50, officers: 3 },
+    "default": { pending: 12, approved: 35, entries: 125, officers: 8 }
+  };
+
+  const currentStats = faculty ? allStats[faculty] : allStats["default"];
 
   const stats = [
     {
       title: "Pending Gate Passes",
-      value: 12,
+      value: currentStats?.pending || 0,
       iconColor: "blue",
       bgColor: "bg-blue",
       svgPath: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
     },
     {
       title: "Approved Today",
-      value: 28,
+      value: currentStats?.approved || 0,
       iconColor: "green",
       bgColor: "bg-green",
       svgPath: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
     },
     {
       title: "Vehicle Entries",
-      value: 156,
+      value: currentStats?.entries || 0,
       iconColor: "purple",
       bgColor: "bg-purple",
       svgPath: "M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2v0M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
     },
     {
       title: "Security Officers",
-      value: 8,
+      value: currentStats?.officers || 0,
       iconColor: "orange",
       bgColor: "bg-orange",
       svgPath: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
@@ -36,13 +46,17 @@ export default function Overview() {
   ];
 
   const recentActivities = [
-    { color: "green", text: "Gate pass approved for Equipment Transport", time: "2 minutes ago" },
+    { color: "green", text: `Gate pass approved for ${faculty || "General"} Equipment`, time: "2 minutes ago" },
     { color: "blue", text: "Vehicle ABC-1234 entered premises", time: "5 minutes ago" },
     { color: "yellow", text: "New gate pass request submitted", time: "8 minutes ago" },
   ];
 
   return (
     <div className="overview-section">
+      <div className="overview-header" style={{ marginBottom: "20px" }}>
+        <h3>Overview {faculty && `- ${faculty}`}</h3>
+      </div>
+
       {/* Stats Cards */}
       <div className="stats-grid">
         {stats.map((stat, index) => (
