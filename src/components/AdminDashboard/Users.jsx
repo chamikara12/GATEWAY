@@ -1,54 +1,95 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Users.css";
 import AddUserModal from "./AddUserModal";
 
-export default function Users() {
-  const [officers, setOfficers] = useState([
-    { name: "Officer Rajesh", gate: "Main Gate", activeSince: "Jan 2024" },
-    { name: "Officer Kumari", gate: "Side Gate", activeSince: "Mar 2024" },
-  ]);
-
+export default function Users({ faculty }) {
+  const [officers, setOfficers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingOfficer, setEditingOfficer] = useState(null); // store officer being edited
+  const [editingOfficer, setEditingOfficer] = useState(null);
   const [editIndex, setEditIndex] = useState(null);
 
+  useEffect(() => {
+    fetchOfficers();
+  }, []);
+
+  const fetchOfficers = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/user");
+      const data = await response.json();
+      setOfficers(data.map(u => ({
+        name: u.name,
+        gate: u.gate || "Main Gate",
+        activeSince: "Jan 2024", // Placeholder
+        email: u.email,
+        faculty: u.faculty || "Applied Science" // Mock faculty if missing
+      })));
+    } catch (error) {
+      console.error("Failed to fetch officers", error);
+    }
+  };
+
+  // Filter officers by faculty
+  const filteredOfficers = faculty
+    ? officers.filter(o => o.faculty === faculty)
+    : officers;
+
   // ✅ Add or update officer
-  const handleAddOrEditOfficer = (officerData) => {
-    if (editingOfficer !== null) {
-      // Editing existing officer
-      const updatedOfficers = [...officers];
-      updatedOfficers[editIndex] = {
-        ...updatedOfficers[editIndex],
-        name: officerData.fullName,
-        gate: officerData.gate,
-      };
-      setOfficers(updatedOfficers);
+  const handleAddOrEditOfficer = async (officerData) => {
+    try {
+      if (editingOfficer) {
+        // Update
+        await fetch(`http://localhost:5000/user/${editingOfficer.email}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: officerData.fullName,
+            gate: officerData.gate
+          }),
+        });
+      } else {
+        // Add
+        await fetch("http://localhost:5000/user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: Date.now().toString(),
+            name: officerData.fullName,
+            email: officerData.username,
+            password: officerData.password,
+            role: "security",
+            gate: officerData.gate,
+            faculty: faculty // Assign to current faculty
+          }),
+        });
+      }
+      fetchOfficers();
+      setIsModalOpen(false);
       setEditingOfficer(null);
       setEditIndex(null);
-    } else {
-      // Adding new officer
-      const newOfficerData = {
-        name: officerData.fullName,
-        gate: officerData.gate,
-        activeSince: new Date().toLocaleString("default", {
-          month: "short",
-          year: "numeric",
-        }),
-      };
-      setOfficers([...officers, newOfficerData]);
+    } catch (error) {
+      console.error("Error saving officer", error);
+      alert("Failed to save officer");
     }
   };
 
   // ✅ Remove officer
-  const handleRemoveOfficer = (index) => {
+  const handleRemoveOfficer = async (index) => {
+    const officer = filteredOfficers[index];
     if (window.confirm("Are you sure you want to remove this officer?")) {
-      setOfficers(officers.filter((_, i) => i !== index));
+      try {
+        await fetch(`http://localhost:5000/user/${officer.email}`, {
+          method: "DELETE",
+        });
+        fetchOfficers();
+      } catch (error) {
+        console.error("Error deleting officer", error);
+      }
     }
   };
 
   // ✅ Open modal for editing
   const handleEditOfficer = (index) => {
-    const officer = officers[index];
+    const officer = filteredOfficers[index];
     setEditingOfficer(officer);
     setEditIndex(index);
     setIsModalOpen(true);
@@ -59,7 +100,7 @@ export default function Users() {
       <div className="users-container">
         <div className="users-header">
           <div>
-            <h3>Manage Security Officers</h3>
+            <h3>Manage Security Officers {faculty && `- ${faculty}`}</h3>
             <p>Add and manage security officer accounts</p>
           </div>
           <button
@@ -74,10 +115,10 @@ export default function Users() {
         </div>
 
         <div className="officers-grid">
-          {officers.length === 0 ? (
-            <p>No officers available.</p>
+          {filteredOfficers.length === 0 ? (
+            <p>No officers available for {faculty}.</p>
           ) : (
-            officers.map((officer, index) => (
+            filteredOfficers.map((officer, index) => (
               <div key={index} className="officer-card">
                 <div className="officer-info">
                   <div>

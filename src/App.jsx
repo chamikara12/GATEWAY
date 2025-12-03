@@ -4,13 +4,18 @@ import AdminDashboard from "./components/AdminDashboard";
 import SecurityDashboard from "./components/SecurityDashboard";
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   function handleLogin({ username, role }) {
     setUser({ username, role });
   }
 
   function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
   }
 
