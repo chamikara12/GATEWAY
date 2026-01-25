@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import LoginPage from "./components/LoginPage";
-import AdminDashboard from "./components/AdminDashboard";
-import SecurityDashboard from "./components/SecurityDashboard";
+import LoginPage from "./components/LoginPage.jsx";
+import AdminDashboard from "./components/AdminDashboard/index.jsx";
+import SecurityDashboard from "./components/SecurityDashboard/index.jsx";
 
 export default function App() {
   const [user, setUser] = useState(() => {

@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# Gateway - Vehicle & Gate Pass System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a MERN stack application designed to manage vehicle entries, exits, and gate passes for a university or organization. It includes dashboards for Administrators and Security Officers.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+*   **Admin Dashboard**:
+    *   Manage Users (Security Officers, Admins).
+    *   Approve/Reject Gate Passes.
+    *   View Reports and Analytics.
+    *   Manage Vehicles.
+*   **Security Dashboard**:
+    *   Record Vehicle Entries and Exits.
+    *   View Visitor Logs.
+    *   Scan QR Codes (planned/integrated).
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before running the project, ensure you have the following installed:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+*   **Node.js** (v14 or higher)
+*   **MongoDB** (Local instance running on `mongodb://localhost:27017/gatePass`)
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/anushika32/GATEWAY.git
+    cd GATEWAY
+    ```
 
-### `npm run build`
+2.  **Install Dependencies**:
+    The project uses a single `package.json` for both frontend and backend configurations.
+    ```bash
+    npm install
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running the Application
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You need to run both the backend server and the frontend React application.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. Start the Backend Server
+The server runs on port **5000** and connects to the local MongoDB instance.
+```bash
+npm run server
+```
+*   Ensure MongoDB is running locally before starting the server to avoid connection errors.
+*   The backend entry point is `Database/index.js`.
 
-### `npm run eject`
+### 2. Start the Frontend
+The React application runs on port **3000**.
+```bash
+npm start
+```
+*   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Login Credentials
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Use the following default credentials to access the system:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### **Admin Login**
+*   **Role**: Admin
+*   **Username**: `admin`
+*   **Password**: `admin123`
+*   *Note: Administrative access for managing the system.*
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **Security Officer Login**
+*   **Role**: Security
+*   **Username**: `security`
+*   **Password**: `security123`
+*   *Note: Operational access for recording entries/exits.*
 
-## Learn More
+## Project Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+*   `src/`: React Frontend source code.
+    *   `src/components/`: Reusable UI components and Dashboard views.
+*   `Database/`: Express Backend source code.
+    *   `Database/Router/`: API Routes.
+    *   `Database/controller/`: Route controllers/logic.
+    *   `Database/model/`: Mongoose data models.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Troubleshooting
 
-### Code Splitting
+*   **MongoDB Connection Error**: If the server fails to connect to MongoDB, ensure your local MongoDB service is active. The app handles connection failures gracefully but backend features will not work without it.
+*   **Port Conflicts**: Ensure ports 3000 (React) and 5000 (Express) are free.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[MIT](LICENSE)

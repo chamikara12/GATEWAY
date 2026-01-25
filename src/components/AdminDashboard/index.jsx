@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Overview from "./Overview";
-import GatePasses from "./GatePasses";
-import Vehicles from "./Vehicles";
-import Users from "./Users";
-import Reports from "./Reports";
-import AddUserModal from "./AddUserModal";
+import Overview from "./Overview.jsx";
+import GatePasses from "./GatePasses.jsx";
+import Vehicles from "./Vehicles.jsx";
+import Users from "./Users.jsx";
+import Reports from "./Reports.jsx";
+import AddUserModal from "./AddUserModal.jsx";
 import "./AdminDashboard.css"; // Ensure CSS exists or create it
 
 export default function AdminDashboard({ user, onLogout }) {

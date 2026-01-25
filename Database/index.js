@@ -88,6 +88,8 @@ app.use("/vehicleRecord", vehicleRecordRouter);
 
 mongoose.connect("mongodb://localhost:27017/gatePass").then(() => {
   console.log("Connected to MongoDB");
+}).catch((err) => {
+  console.log("Failed to connect to MongoDB", err.message);
 });
 
 app.listen(port, () => {

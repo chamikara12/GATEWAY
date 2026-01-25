@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import VehicleEntry from "./VehicleEntry";
-import VehicleExit from "./VehicleExit";
-import Records from "./Records";
+import VehicleEntry from "./VehicleEntry.jsx";
+import VehicleExit from "./VehicleExit.jsx";
+import Records from "./Records.jsx";
 
 export default function SecurityDashboard({ user, onLogout }) {
   const [activeTab, setActiveTab] = useState("entry");
