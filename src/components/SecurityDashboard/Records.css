@@ -1,0 +1,73 @@
+/* Place this file inside: src/components/SecurityDashboard/Records.css */
+
+.records-section {
+  padding: 20px;
+}
+
+.records-container {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.records-header {
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.records-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.records-header p {
+  font-size: 14px;
+  color: #4b5563;
+  margin-top: 5px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.records-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  background-color: #f9fafb;
+}
+
+.records-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #111827;
+  border-top: 1px solid #f0f0f0;
+}
+
+.status {
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 9999px;
+}
+
+.status.inside {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status.exited {
+  background-color: #f3f4f6;
+  color: #374151;
+}
