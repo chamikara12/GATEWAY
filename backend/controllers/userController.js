@@ -1,7 +1,7 @@
 // controllers/userController.js
 const User = require('../models/User');
-const nodemailer = require('nodemailer');
 
+// ---------------- CREATE USER ----------------
 async function createUser(req, res) {
   try {
     const { fullName, username, email, telephone, password, role } = req.body;
@@ -10,15 +10,18 @@ async function createUser(req, res) {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    if (!['officer', 'admin'].includes(role)) {
+    if (!['admin', 'officer'].includes(role)) {
       return res.status(400).json({ message: 'Invalid role' });
     }
 
-    const existing = await User.findOne({ $or: [{ username }, { email }] });
-    if (existing) {
-      return res
-        .status(400)
-        .json({ message: 'User with this username or email already exists' });
+    const existingUser = await User.findOne({
+      $or: [{ username }, { email }],
+    });
+
+    if (existingUser) {
+      return res.status(400).json({
+        message: 'Username or email already exists',
+      });
     }
 
     const user = await User.create({
@@ -30,81 +33,78 @@ async function createUser(req, res) {
       role,
     });
 
-    // Email credentials
-    const transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port: Number(process.env.MAIL_PORT) || 587,
-      secure: false,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
-    });
-
-    const mailOptions = {
-      from: process.env.MAIL_FROM || process.env.MAIL_USER,
-      to: email,
-      subject: 'Security Gate Pass System Credentials',
-      text: `
-Dear ${fullName},
-
-You have been registered in the Security Gate Pass Management System.
-
-Role: ${role}
-Username: ${username}
-Password: ${password}
-
-Please keep these credentials confidential.
-
-Thank you.
-`,
-    };
-
-    transporter.sendMail(mailOptions).catch((err) => {
-      console.error('Email send error', err);
-    });
-
-    const safeUser = {
-      id: user._id,
-      fullName: user.fullName,
-      username: user.username,
-      email: user.email,
-      telephone: user.telephone,
-      role: user.role,
-    };
-
     res.status(201).json({
       success: true,
-      user: safeUser,
-      credentials: { username, password, role },
+      message: 'User created successfully',
+      user,
     });
-  } catch (err) {
-    console.error('createUser error', err);
+  } catch (error) {
+    console.error('createUser error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 }
 
+// ---------------- LIST USERS ----------------
 async function listUsers(req, res) {
   try {
     const users = await User.find().select('-password');
     res.json({ success: true, users });
-  } catch (err) {
-    console.error('listUsers error', err);
+  } catch (error) {
+    console.error('listUsers error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 }
 
+// ---------------- UPDATE USER ----------------
+async function updateUser(req, res) {
+  try {
+    const { id } = req.params;
+    const { fullName, username, email, telephone, role } = req.body;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.fullName = fullName || user.fullName;
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.telephone = telephone || user.telephone;
+    user.role = role || user.role;
+
+    await user.save();
+
+    res.json({
+      success: true,
+      message: 'User updated successfully',
+      user,
+    });
+  } catch (error) {
+    console.error('updateUser error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
+
+// ---------------- DELETE USER ----------------
 async function deleteUser(req, res) {
   try {
     const { id } = req.params;
 
     const user = await User.findById(id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
     await User.deleteOne({ _id: id });
-    res.json({ success: true, message: 'User deleted successfully' });
-  } catch (err) {
-    console.error('deleteUser error', err);
+
+    res.json({
+      success: true,
+      message: 'User deleted successfully',
+    });
+  } catch (error) {
+    console.error('deleteUser error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 }
@@ -112,5 +112,6 @@ async function deleteUser(req, res) {
 module.exports = {
   createUser,
   listUsers,
+  updateUser,
   deleteUser,
 };
