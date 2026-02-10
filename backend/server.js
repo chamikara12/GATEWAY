@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const gatePassRoutes = require('./routes/gatePassRoute');
+const vehicleRecordRouter = require('./routes/vehicleRecordRouter');
+const noticeRouter = require('./routes/noticeRouter');
 
 const app = express();
 app.use(cors());
@@ -20,6 +22,8 @@ mongoose
 // Mount all user/auth/admin routes under /api/users
 app.use('/api/users', userRoutes);
 app.use('/api/gatepasses', gatePassRoutes);
+app.use('/api/vehicle-records', vehicleRecordRouter);
+app.use('/api/notices', noticeRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
